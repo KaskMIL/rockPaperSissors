@@ -1,60 +1,63 @@
-const rockUser = document.getElementById('rockUser');
-const paperUser = document.getElementById('paperUser');
-const scissorUser = document.getElementById('scissorUser');
-const contador = [];
-rockUser.addEventListener('click', function(e){
-    console.log(e.target);
-});
-paperUser.addEventListener('click', function(e) {
-    console.log(e.target);
-});
-scissorUser.addEventListener('click', function(e) {
-    console.log(e.target);
-})
+//GAME
 
-function randomInt(min,max){
-    return Math.floor(Math.random()*(max-min)+min);
-}
+let userScore = 0;
+let computerScore = 0;
+let roundWinner = '';
 
-function computerPlay(){
-    const play = ["Rock", "Paper", "Sissors"];
-    let choice = randomInt(0,3);
-    return play[choice];
-}
 
-function userPlay(){
-    const play = ["Rock", "Paper", "Sissors"];
-    let choice = prompt("Choice Rock = 1, Paper = 2 or Scissor = 3");
-    let num = parseInt(choice) - 1;
-    return play[num];
-}
-
-function playing(marcador, userChoice, computerChoice){
-    
-
-    if(userChoice === computerChoice){
-        return console.log("Empate");
+function playRound(userSelection, computerSelection){
+    if(userSelection === computerSelection){
+        roundWinner = 'TIE';
     }
-    else if(userChoice === "Rock" && computerChoice === "Sissors" || userChoice === "Paper" && computerChoice === "Rock" || userChoice ==="Sissors" && computerChoice == "Paper"){
-            marcador[0] ++;
-            console.log(`Marcador! User ${marcador[0]} - ${marcador[1]} Computer`)
-            return "User wins";
+
+    if(userSelection === 0 && computerSelection === 2 || userSelection === 1 && computerSelection === 0 || userSelection === 2 && computerSelection === 1){
+        userScore ++;
+        roundWinner = 'PLAYER';
     }
-    else{
-        marcador[1] ++;
-        console.log(`Marcador! User ${marcador[0]} - ${marcador[1]} Computer`)
-        return "Computer wins";
+    if(computerSelection === 0 && userSelection === 2 || computerSelection === 1 && userSelection === 0 || computerSelection === 2 && userSelection === 1){
+        computerScore ++;
+        roundWinner = 'COMPUTER';
     }
 }
 
-
-
-function multiplePlay(cantidad){
-    const marcador = [0,0];
-
-    for(let i = 0; i < cantidad; i++){
-        playing(marcador, userPlay(),computerPlay());
-    }
+function randomNumber(){
+    return Math.floor(Math.random() * 3);
 }
 
-multiplePlay(3);
+function gameOver(userScore, computerScore){
+    return userScore === 5 || computerScore ===5;
+}
+
+// UI
+
+// BUTTONS
+const rockBtn = document.getElementById('rockUser');
+const paperBtn = document.getElementById('paperUser');
+const scissorBtn = document.getElementById('scissorUser');
+//ELEMENTS
+const resultadoUser = document.getElementById('resultadoUser');
+const resultadoMaquina = document.getElementById('resultadoMaquina');
+const roundWin = document.getElementById('rWinner');
+
+rockBtn.addEventListener('click', () => userChoice(0));
+paperBtn.addEventListener('click', () => userChoice(1));
+scissorBtn.addEventListener('click', () => userChoice(2));
+
+function userChoice(userSelection){
+    if(gameOver(userScore, computerScore)){
+        restart();
+        return;
+    }
+    let computerNumber = randomNumber();
+    playRound(userSelection, computerNumber);
+
+    resultadoUser.textContent = `${userScore}`;
+    resultadoMaquina.textContent = `${computerScore}`;
+    roundWin.textContent = `${roundWinner} WINS THIS ROUND`
+}
+
+function restart(){
+    userScore = 0;
+    computerScore = 0;
+}
+
