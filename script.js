@@ -1,62 +1,63 @@
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
+//GAME
 
-function computerPlay() {
-    let choice = randomInt(0, 3);
-    return choice;
-}
+let userScore = 0;
+let computerScore = 0;
+let roundWinner = '';
 
-function playing(marcador, userChoice, computerChoice) {
 
-    if (userChoice === computerChoice) {
-        marcador[0]++;
-        marcador[1]++;
-    } else if (userChoice === 0 && computerChoice === 2 || userChoice === 1 && computerChoice === 0 || userChoice === 2 && computerChoice == 1) {
-        marcador[0]++;
-        console.log(`Marcador! User ${marcador[0]} - ${marcador[1]} Computer`)
-        return console.log("User wins");
-    } else {
-        marcador[1]++;
-        console.log(`Marcador! User ${marcador[0]} - ${marcador[1]} Computer`)
-        return console.log("Computer wins");
+function playRound(userSelection, computerSelection){
+    if(userSelection === computerSelection){
+        roundWinner = 'TIE';
+    }
+
+    if(userSelection === 0 && computerSelection === 2 || userSelection === 1 && computerSelection === 0 || userSelection === 2 && computerSelection === 1){
+        userScore ++;
+        roundWinner = 'PLAYER';
+    }
+    if(computerSelection === 0 && userSelection === 2 || computerSelection === 1 && userSelection === 0 || computerSelection === 2 && userSelection === 1){
+        computerScore ++;
+        roundWinner = 'COMPUTER';
     }
 }
 
-const marcador = [0, 0];
-const rock = document.querySelector('#rockUser');
-const paper = document.querySelector('#paperUser');
-const scissor = document.querySelector('#scissorUser');
-const marcadorTemp = document.getElementById('template-marcador').content;
-const marcadorCont = document.querySelector(".marcador");
-const fragment = document.createDocumentFragment();
+function randomNumber(){
+    return Math.floor(Math.random() * 3);
+}
 
+function gameOver(userScore, computerScore){
+    return userScore === 5 || computerScore ===5;
+}
 
+// UI
 
-rock.addEventListener('click', () => {
-    marcadorCont.innerHTML = '';
-    playing(marcador, 0, computerPlay());
-    marcadorTemp.getElementById('resultadoUser').textContent = `${marcador[0]}`;
-    marcadorTemp.getElementById('resultadoMaquina').textContent = `${marcador[1]}`;
-    const clone = marcadorTemp.cloneNode(true);
-    fragment.appendChild(clone);
-    marcadorCont.appendChild(fragment);
-});
-paper.addEventListener('click', () => {
-    marcadorCont.innerHTML = '';
-    playing(marcador, 1, computerPlay());
-    marcadorTemp.getElementById('resultadoUser').textContent = `${marcador[0]}`;
-    marcadorTemp.getElementById('resultadoMaquina').textContent = `${marcador[1]}`;
-    const clone = marcadorTemp.cloneNode(true);
-    fragment.appendChild(clone);
-    marcadorCont.appendChild(fragment);
-});
-scissor.addEventListener('click', () => {
-    marcadorCont.innerHTML = '';
-    playing(marcador, 2, computerPlay());
-    marcadorTemp.getElementById('resultadoUser').textContent = `${marcador[0]}`;
-    marcadorTemp.getElementById('resultadoMaquina').textContent = `${marcador[1]}`;
-    const clone = marcadorTemp.cloneNode(true);
-    fragment.appendChild(clone);
-    marcadorCont.appendChild(fragment);
-});
+// BUTTONS
+const rockBtn = document.getElementById('rockUser');
+const paperBtn = document.getElementById('paperUser');
+const scissorBtn = document.getElementById('scissorUser');
+//ELEMENTS
+const resultadoUser = document.getElementById('resultadoUser');
+const resultadoMaquina = document.getElementById('resultadoMaquina');
+const roundWin = document.getElementById('rWinner');
+
+rockBtn.addEventListener('click', () => userChoice(0));
+paperBtn.addEventListener('click', () => userChoice(1));
+scissorBtn.addEventListener('click', () => userChoice(2));
+
+function userChoice(userSelection){
+    if(gameOver(userScore, computerScore)){
+        restart();
+        return;
+    }
+    let computerNumber = randomNumber();
+    playRound(userSelection, computerNumber);
+
+    resultadoUser.textContent = `${userScore}`;
+    resultadoMaquina.textContent = `${computerScore}`;
+    roundWin.textContent = `${roundWinner} WINS THIS ROUND`
+}
+
+function restart(){
+    userScore = 0;
+    computerScore = 0;
+}
+

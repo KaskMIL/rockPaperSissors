@@ -5,10 +5,20 @@ html {
     box-sizing: inherit;
   }
 
+  body{
+    background-color: black;
+  }
+  body h1{
+    font-family: 'Sarpanch', sans-serif;
+    color: white;
+  }
+
+
   .container{
+      
       width: 1200px;
       height: 100vh;
-      background-color: antiquewhite;
+      color: white;
       margin: 0 auto;
       text-align: center;
   }
@@ -25,12 +35,22 @@ html {
 
 .elementContainer .img{
     
-    margin: 0 0.3rem;
+    margin: 0 0.7rem;
     padding: 1rem;
-    border: 0.1rem solid rgba(132,94,194, 0.5);
+    border: 0.1rem solid white;
     border-radius: 1rem;
 }
 
 .elementContainer .img i{
     font-size: 8rem;
+}
+
+.marcador{
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Sarpanch', sans-serif;
+}
+
+.roundWin{
+    font-family: 'Sarpanch', sans-serif;
 }
