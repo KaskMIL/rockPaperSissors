@@ -16,7 +16,7 @@
         <h1>Rock, Paper or Sissors!</h1>
         <div class="containerGame">
             <div class="userContainer">
-                <h2>User</h2>
+
                 <div class="elementContainer">
                     <div id="rockUser" class="img">
                         <i class="far fa-hand-rock"></i>
@@ -29,31 +29,22 @@
                     </div>
                 </div>
                 <div class="marcador">
-                    <p>0</p>
                 </div>
             </div>
-            <div class="computerContainer">
-                <h2>Computer</h2>
-                <div class="elementContainer">
-                    <div id="rockCom" class="img">
-                        <i class="far fa-hand-rock"></i>
-                    </div>
-                    <div id="paperCom" class="img">
-                        <i class="far fa-hand-paper"></i>
-                    </div>
-                    <div id="scissorCom" class="img">
-                        <i class="far fa-hand-scissors"></i>
-                    </div>
-                </div>
-                <div class="marcador">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="cartel">
-            <h3>Aca va a aparecer un cartel</h3>
         </div>
     </div>
+
+    <!-- TEMPLATES -->
+    <template id="template-marcador">
+        <div>
+            <h2>User</h2>
+            <p id="resultadoUser"></p>
+        </div>
+        <div>
+            <h2>Maquina</h2>
+            <p id="resultadoMaquina"></p>
+        </div>
+    </template>
 
     <script src="script.js"></script>
 </body>
