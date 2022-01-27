@@ -1,3 +1,16 @@
+const rockUser = document.getElementById('rockUser');
+const paperUser = document.getElementById('paperUser');
+const scissorUser = document.getElementById('scissorUser');
+const contador = [];
+rockUser.addEventListener('click', function(e){
+    console.log(e.target);
+});
+paperUser.addEventListener('click', function(e) {
+    console.log(e.target);
+});
+scissorUser.addEventListener('click', function(e) {
+    console.log(e.target);
+})
 
 function randomInt(min,max){
     return Math.floor(Math.random()*(max-min)+min);
@@ -11,14 +24,13 @@ function computerPlay(){
 
 function userPlay(){
     const play = ["Rock", "Paper", "Sissors"];
-    let choice = prompt("Elije 1 = Rock, 2 = Paper o 3 = Sissors");
+    let choice = prompt("Choice Rock = 1, Paper = 2 or Scissor = 3");
     let num = parseInt(choice) - 1;
     return play[num];
 }
 
-function playing(marcador){
-    let computerChoice = computerPlay();
-    let userChoice = userPlay();
+function playing(marcador, userChoice, computerChoice){
+    
 
     if(userChoice === computerChoice){
         return console.log("Empate");
@@ -41,6 +53,8 @@ function multiplePlay(cantidad){
     const marcador = [0,0];
 
     for(let i = 0; i < cantidad; i++){
-        playing(marcador);
+        playing(marcador, userPlay(),computerPlay());
     }
 }
+
+multiplePlay(3);
