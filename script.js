@@ -5,28 +5,32 @@ let computerScore = 0;
 let roundWinner = '';
 
 
-function playRound(userSelection, computerSelection){
-    if(userSelection === computerSelection){
+function playRound(userSelection, computerSelection) {
+    if (userSelection === computerSelection) {
         roundWinner = 'TIE';
     }
 
-    if(userSelection === 0 && computerSelection === 2 || userSelection === 1 && computerSelection === 0 || userSelection === 2 && computerSelection === 1){
-        userScore ++;
+    if (userSelection === 0 && computerSelection === 2 || userSelection === 1 && computerSelection === 0 || userSelection === 2 && computerSelection === 1) {
+        userScore++;
         roundWinner = 'PLAYER';
     }
-    if(computerSelection === 0 && userSelection === 2 || computerSelection === 1 && userSelection === 0 || computerSelection === 2 && userSelection === 1){
-        computerScore ++;
+    if (computerSelection === 0 && userSelection === 2 || computerSelection === 1 && userSelection === 0 || computerSelection === 2 && userSelection === 1) {
+        computerScore++;
         roundWinner = 'COMPUTER';
     }
 }
 
-function randomNumber(){
+function randomNumber() {
     return Math.floor(Math.random() * 3);
 }
 
-function gameOver(userScore, computerScore){
-    return userScore === 5 || computerScore ===5;
-}
+function gameOver(userScore, computerScore) {
+    if (userScore === 5 || computerScore === 5) {
+        return true;
+    } else {
+        return false;
+    };
+};
 
 // UI
 
@@ -43,8 +47,8 @@ rockBtn.addEventListener('click', () => userChoice(0));
 paperBtn.addEventListener('click', () => userChoice(1));
 scissorBtn.addEventListener('click', () => userChoice(2));
 
-function userChoice(userSelection){
-    if(gameOver(userScore, computerScore)){
+function userChoice(userSelection) {
+    if (gameOver(userScore, computerScore)) {
         restart();
         return;
     }
@@ -53,11 +57,18 @@ function userChoice(userSelection){
 
     resultadoUser.textContent = `${userScore}`;
     resultadoMaquina.textContent = `${computerScore}`;
-    roundWin.textContent = `${roundWinner} WINS THIS ROUND`
+    if (roundWinner == "TIE") {
+        roundWin.textContent = `${roundWinner}`
+    } else {
+        roundWin.textContent = `${roundWinner} WINS THIS ROUND`
+    }
 }
 
-function restart(){
+
+function restart() {
+    resultadoUser.innerHTML = "";
+    resultadoMaquina.innerHTML = "";
+    roundWin.innerHTML = "";
     userScore = 0;
     computerScore = 0;
 }
-
