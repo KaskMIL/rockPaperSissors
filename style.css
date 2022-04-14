@@ -47,6 +47,11 @@ html {
     font-size: 8rem;
 }
 
+.img:hover{
+  cursor: pointer;
+  background-color: grey;
+}
+
 .marcador{
     display: flex;
     justify-content: space-around;
@@ -91,6 +96,11 @@ html {
   padding: 0.5rem 0;
   border: 0.1rem solid white;
   border-radius: 1rem;
+}
+
+.button:hover{
+  cursor: pointer;
+  background-color: grey;
 }
 
 .hide{
