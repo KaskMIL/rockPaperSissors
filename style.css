@@ -16,7 +16,7 @@ html {
 
   .container{
       
-      width: 1200px;
+      max-width: 1200px;
       height: 100vh;
       color: white;
       margin: 0 auto;
